@@ -1,5 +1,5 @@
 /*
-Day 1 PART 1
+Day 1 
 */
 
 
@@ -19,7 +19,7 @@ nextDepthLevelsArray = nextDepthLevelsArray.reduce((a, b) => a.concat(b), []);
 //-1 because we give a + 1 to our count from the start in the first iteration
 let count = -1
 let depthlevel = 0
-nextDepthLevelsArray.forEach(nextDepthLevel =>{
+nextDepthLevelsArray.forEach(nextDepthLevel => {
     //starts with 0, because input starts with an increase
     if(depthlevel < nextDepthLevel){
         //we dive deeper and depthlevel becomes the (previous) deeper level
@@ -32,8 +32,28 @@ nextDepthLevelsArray.forEach(nextDepthLevel =>{
     }
 })
         
-console.log(count)
+console.log(`There are ${count} measurement increases`)
 
 
+function part2(arr) {
+  let count = 0;
+  //takes first 3 indexes of array
+  let windowOne = getSum(nextDepthLevelsArray.slice(0, 3));
+  // second pair to compare
+  let windowTwo;
 
-// console.log(counter)
+  for (let i = 1; i < nextDepthLevelsArray.length; i++) {
+    windowTwo = getSum(nextDepthLevelsArray.slice(i, i + 3));
+    windowTwo > windowOne ? count += 1 : count;
+    windowOne = windowTwo;
+  }
+  console.log(`There are ${count} three windows measurement increases`);
+  return count;
+}
+part2(nextDepthLevelsArray);
+
+//sums up parts of array
+function getSum(slice) {
+  return slice.reduce((a, b) => a + b, 0);
+}
+
