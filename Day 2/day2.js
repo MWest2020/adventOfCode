@@ -1,4 +1,4 @@
-const file  = "sample"
+const file  = "input"
 
 //FROM TEXT FILE TO ARRAY:
 var fs = require("fs");
@@ -18,15 +18,26 @@ console.log(nextDepthLevelsArray)
 
 
 function getDirection(arr){
+
+    let up = 0;
+    let forward = 0;
+    let down = 0;
+    // let depth = down - up;
+
     for(let i = 0; i < arr.length; i++  ){
     let string = arr[i];
     let withoutNum  = arr[i].slice(0,-1);
-    let getNum = string.slice(string.length -1);
+    let getNum = parseInt(string.slice(string.length -1));
 
     if(withoutNum.includes('forward')){
-        console.log('forward')
+        forward += getNum;
+    } else if(withoutNum.includes('up')){
+        up += getNum;
+    } else {
+        down += getNum;
     }
-    console.log(getNum);
+    console.log(forward * (down - up) );
+    
     // console.log(withoutNum);
 }}
 getDirection(nextDepthLevelsArray);
